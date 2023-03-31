@@ -1,1 +1,73 @@
-<p>cliente works!</p>
+<div class="container"> 
+    <mat-card> 
+      <mat-toolbar color="accent"> 
+        <div align="center" style="color:white;text-align: right;"> 
+          Angular 7 - clientes - CRUD
+        </div>   
+      </mat-toolbar> 
+    <br><br> 
+      <mat-card-content> 
+        <form [formGroup]="clienteForm"(ngSubmit)="onFormSubmit(clienteForm.value)"> 
+                <table> 
+                  <tr> 
+                    <td class="tbl1"> 
+                      <mat-form-field class="demo-full-width"> 
+                        <input formControlName="Nome" matTooltip="Informe o telefone do cliente" matInput placeholder="Nome do cliente"> 
+                      </mat-form-field> 
+                      <mat-error> 
+                        <span *ngIf="!clienteForm.get('telefone').value"></span> 
+                      </mat-error> 
+                    </td> 
+                    <td class="tbl1"> 
+                      <mat-form-field class="demo-full-width"> 
+                        <input formControlName="Telefone" matTooltip="Informe o telefone" matInput placeholder="Telefone"> 
+                      </mat-form-field> 
+                      <mat-error> 
+                        <span *ngIf="!clienteForm.get('Email').value && clienteForm.get('Email').touched"></span> 
+                      </mat-error> 
+                    </td> 
+                  </tr> 
+                  <tr> 
+                    <td></td> 
+                    <td  class="content-center"> 
+                      <button type="submit" mat-raised-button color="accent"matTooltip="Clique no botão Enviar"[disabled]="!clienteForm.valid">Enviar</button>     
+                      <button type="reset" mat-raised-button color="accent"matTooltip="Clique no botão Resetar" (click)="resetForm()">Resetar</button> 
+                    </td> 
+                    <td> 
+                      <p *ngIf="dataSaved" style="color:rgb(55, 0, 128);font-size:20px;font-weight:bold" Class="success" align="left"> 
+                        {{message}} 
+                      </p> 
+                    </td> 
+                  </tr> 
+                </table> 
+           <br><br> 
+          <table class="table" > 
+              <tr ngclass="btn-primary"> 
+                <th class="tbl2">Nome do cliente</th> 
+                <th class="tbl2">CEP</th> 
+                <th class="tbl2">BAIRRO</th>
+                <th class="tbl2">CIDADE</th>
+                <th class="tbl2">UF</th>
+                <th class="tbl2">TELEFONE</th>
+                <th class="tbl2">Edita</th> 
+                <th class="tbl2">Deleta</th> 
+              </tr> 
+              <tr *ngFor="let cliente of allclientes | async"> 
+                <td class="tbl2">{{Cliente.NOME}}</td> 
+                <td class="tbl2">{{Cliente.CEP}}</td> 
+                <td class="tbl2">{{Cliente.BAIRRO}}</td> 
+                <td class="tbl2">{{Cliente.CIDADE}}</td> 
+                <td class="tbl2">{{Cliente.UF}}</td> 
+                <td class="tbl2">{{Cliente.TELEFONE}}</td> 
+                <td class="tbl2"> 
+                  <button type="button" class="btn btn-info"matTooltip="Clique no botão para Editar"(click)="loadclienteToEdit(cliente.clienteId)">Editar</button> 
+                </td> 
+                <td class="tbl2"> 
+                  <button type="button" class="btn btn-danger"matTooltip="Clique no botão para Deletar"(click)="deletecliente(cliente.clienteId)">Deletar</button> 
+                </td> 
+              </tr>    
+            </table> 
+        </form> 
+      </mat-card-content> 
+    </mat-card> 
+    </div>
